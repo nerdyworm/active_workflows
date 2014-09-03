@@ -1,13 +1,13 @@
 require 'active_workflows'
 
 class Shouter < ActiveWorkflows::Activity
-  def shout(name)
+  def shout(name, more)
     10.times do
-      puts name.upcase
+      puts name.upcase + " #{more}"
     end
   end
 
-  active_activity :shout, version: '2'
+  active_activity :shout, version: '3'
 end
 
 class SimpleWorkflow < ActiveWorkflows::Workflow
@@ -16,7 +16,7 @@ class SimpleWorkflow < ActiveWorkflows::Workflow
   end
 
   def simple_activity_workflow(options)
-    shouter.shout(options.fetch("name"))
+    shouter.shout(options.fetch("name"), "more")
   end
 
   active_workflow :simple_activity_workflow, version: '2'

@@ -14,8 +14,8 @@ module ActiveWorkflows
 
       handler = self.handler
       m = instance_method(method)
-      define_method method do |input|
-        handler.handle(m.bind(self), input)
+      define_method method do |*args|
+        handler.handle(m.bind(self), *args)
       end
     end
 
@@ -38,9 +38,9 @@ module ActiveWorkflows
   end
 
   class ActivityHandler
-    def handle(method, input)
+    def handle(method, *args)
       exception_handler do
-        method[input]
+        method[*args]
       end
     end
 
