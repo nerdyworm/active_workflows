@@ -17,9 +17,16 @@ module ActiveWorkflows
   end
 
   def self.logger
-    logger = Logger.new(STDOUT)
-    logger.level = Logger::INFO
-    logger
+    if @logger.nil?
+      @logger = Logger.new(STDOUT)
+      @logger.level = Logger::INFO
+    end
+
+    @logger
+  end
+
+  def self.logger=(logger)
+    @logger = logger
   end
 
   def self.exception_reporter
