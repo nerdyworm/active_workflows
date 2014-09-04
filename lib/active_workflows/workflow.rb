@@ -28,6 +28,8 @@ module ActiveWorkflows
   class Workflow
     extend AWS::Flow::Workflows
 
+    DEFAULT_DOMAIN_NAME = "active_workflows"
+
     def self.active_workflow(method, options={})
       workflow(method) do
         {
@@ -38,8 +40,14 @@ module ActiveWorkflows
 
       handler = self.handler
       m = instance_method(method)
-      define_method method do |input|
+      define_method(method) do |input|
         handler.handle(m.bind(self), input)
+      end
+
+      if options.key?(:domain_name)
+        define_method(:domain_name) do
+          options[:domain_name]
+        end
       end
     end
 
@@ -70,7 +78,7 @@ module ActiveWorkflows
     end
 
     def domain_name
-      "workflows_test"
+      DEFAULT_DOMAIN_NAME
     end
 
     def task_list

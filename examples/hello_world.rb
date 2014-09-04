@@ -1,13 +1,11 @@
 require 'active_workflows'
 
 class HelloWorkflow < ActiveWorkflows::Workflow
-  workflow :start
-
   def start(options)
     puts "Hello, #{options["name"]}"
   end
 
-  active_workflow_method :start
+  active_workflow :start, domain_name: "my-test-domain"
 end
 
 workflow = HelloWorkflow.new
