@@ -59,6 +59,10 @@ module ActiveWorkflows
       ActiveWorkflows.activate(new)
     end
 
+    def self.begin(options)
+      activate.run(options)
+    end
+
     attr_accessor :host_activity_task_list
     attr_reader :state
 
