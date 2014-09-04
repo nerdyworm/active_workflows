@@ -28,7 +28,8 @@ module ActiveWorkflows
   class Workflow
     extend AWS::Flow::Workflows
 
-    DEFAULT_DOMAIN_NAME = "active_workflows"
+    DEFAULT_DOMAIN_NAME      = "active_workflows"
+    DEFAULT_ACTIVITY_WORKERS = 4
 
     def self.active_workflow(method, options={})
       workflow(method) do
@@ -83,6 +84,10 @@ module ActiveWorkflows
 
     def domain_name
       DEFAULT_DOMAIN_NAME
+    end
+
+    def common_activity_execution_workers
+      DEFAULT_ACTIVITY_WORKERS
     end
 
     def task_list

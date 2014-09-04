@@ -56,7 +56,7 @@ module ActiveWorkflows
     def common_activity_worker
       if @common_activity_worker.nil?
         worker = AWS::Flow::ActivityWorker.new(domain.client, domain, @workflow.activity_task_list) do
-          {logger: @logger}
+          {logger: @logger, execution_workers: @workflow.common_activity_execution_workers }
         end
         @common_activity_worker = worker
       end
@@ -67,7 +67,7 @@ module ActiveWorkflows
     def host_activity_worker
       if @host_activity_worker.nil?
         worker = AWS::Flow::ActivityWorker.new(domain.client, domain, @workflow.host_activity_task_list) do
-          {logger: @logger}
+          {logger: @logger, execution_workers: @workflow.common_activity_execution_workers }
         end
         @host_activity_worker = worker
       end
