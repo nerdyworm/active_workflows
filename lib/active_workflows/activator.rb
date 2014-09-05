@@ -42,7 +42,7 @@ module ActiveWorkflows
       workflow_execution = run(input)
 
       last_event = ''
-      while last_event != 'WorkflowExecutionCompleted' && last_event != 'WorkflowExecutionFailed' do
+      while last_event != 'WorkflowExecutionCompleted' && last_event != 'WorkflowExecutionFailed' && last_event != 'WorkflowExecutionTerminated' do
         event_types = workflow_execution.events.map(&:event_type)
         last_event = event_types.last
         if 'DecisionTaskScheduled' == last_event
