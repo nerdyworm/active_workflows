@@ -7,7 +7,7 @@ module ActiveWorkflows
 
     def initialize(workflow)
       @workflow = workflow
-      #@logger = ActiveWorkflows.logger
+      @logger = ActiveWorkflows.logger
 
       swf = AWS::SimpleWorkflow.new
 
